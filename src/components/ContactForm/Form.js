@@ -10,7 +10,7 @@ class Form extends Component {
 
   nameInputId = shortid.generate();
 
-  handlechange = ({ currentTarget }) => {
+  handleChange = ({ currentTarget }) => {
     const { name, value } = currentTarget;
 
     this.setState({ [name]: value });
@@ -24,6 +24,7 @@ class Form extends Component {
     const isValidForm = this.validateForm();
     if (!isValidForm) return;
     onAdd({ id: shortid.generate(), name, number });
+    this.reset();
   };
 
   validateForm = () => {
@@ -37,7 +38,7 @@ class Form extends Component {
   };
 
   reset = () => {
-    this.setState({ name: "" });
+    this.setState({ name: "", number: "" });
   };
 
   render() {
