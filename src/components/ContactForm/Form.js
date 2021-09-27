@@ -10,16 +10,30 @@ class Form extends Component {
 
   nameInputId = shortid.generate();
 
-  handlechange = (e) => {
-    const { name, value } = e.currentTarget;
+  handlechange = ({ currentTarget }) => {
+    const { name, value } = currentTarget;
 
     this.setState({ [name]: value });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.onSubmit(this.state);
-    this.reset();
+    const { name, number } = this.state;
+    const { onAdd } = this.props;
+
+    const isValidForm = this.validateForm();
+    if (!isValidForm) return;
+    onAdd({ id: shortid.generate(), name, number });
+  };
+
+  validateForm = () => {
+    const { name, number } = this.state;
+    const { onCheckUnique } = this.props;
+    if (!name || !number) {
+      alert("Field is empty");
+      return false;
+    }
+    return onCheckUnique(name);
   };
 
   reset = () => {
@@ -27,12 +41,14 @@ class Form extends Component {
   };
 
   render() {
+    const { name, number } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
         <label htmlFor={this.nameInputId}>Name</label>
         <input
           type="text"
           name="name"
+          value={name}
           onChange={this.handleChange}
           id={this.nameInputId}
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -42,6 +58,9 @@ class Form extends Component {
         <input
           type="tel"
           name="number"
+          value={number}
+          onChange={this.handleChange}
+          id={this.nameInputId}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
           required
