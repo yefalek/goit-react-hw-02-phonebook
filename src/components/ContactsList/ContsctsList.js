@@ -1,6 +1,8 @@
+import s from "./ContactList.module.css";
+
 const ContactListItem = ({ id, name, number, onRemove }) => {
   return (
-    <li>
+    <li className={s.item}>
       {name}:{number} <button onClick={() => onRemove(id)}> Remove </button>
     </li>
   );
@@ -9,7 +11,7 @@ const ContactListItem = ({ id, name, number, onRemove }) => {
 const ContactsList = ({ contacts, onRemove }) => {
   if (contacts.length === 0) return null;
   return (
-    <ul>
+    <ul className={s.list}>
       {contacts.map((contact) => (
         <ContactListItem {...contact} onRemove={onRemove} />
       ))}

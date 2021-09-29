@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import shortid from "shortid";
+import s from "./Form.module.css";
 
 class Form extends Component {
   state = {
@@ -44,9 +45,11 @@ class Form extends Component {
   render() {
     const { name, number } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form className={s.form} onSubmit={this.handleSubmit}>
         <label htmlFor={this.nameInputId}>Name</label>
         <input
+          placeholder="Your name is..."
+          className={s.input}
           type="text"
           name="name"
           value={name}
@@ -56,7 +59,10 @@ class Form extends Component {
           title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
           required
         />
+        <label htmlFor={this.nameInputId}>Phone</label>
         <input
+          placeholder="+..."
+          className={s.input}
           type="tel"
           name="number"
           value={number}
@@ -66,7 +72,9 @@ class Form extends Component {
           title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
           required
         />
-        <button type="submit">Add contact</button>
+        <button className={s.button} type="submit">
+          Add contact
+        </button>
       </form>
     );
   }

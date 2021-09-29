@@ -48,6 +48,7 @@ class App extends Component {
       <>
         <h2>Form Contact</h2>
         <Form
+          className={"forms"}
           onAdd={this.handleAddContact}
           onCheckUnique={this.handleCheckUniqueContact}
         />
